@@ -1,0 +1,26 @@
+Numeric Web API
+
+I tried to make it RESTful, but as I now understand it I've missed the point slightly.
+Currently the idea is to put this into /var/www/api/v1. Then when you add something like /some/thing it takes the some/thing, maybe converts it into variables and sends the data to /var/www/api/v1/index.php as a get request.
+Then index.php can process the request. The library we're using here (SLIM) allows for GET/PUT/DELETE/POST requests to be sent to index.php (as is in line with REST constraints).
+
+The important stuff is happening from about line 270 in index.php, where the routing is actually taking place.
+Before this I've defined some functions which print json in a routine way.
+
+Currently, the calls are:
+
+1.
+/caps_id/capsid
+where capsid is a variable, representing the topic to pick up in the Numeric database
+returns video data for each video in this caps topic
+
+2.
+/tree
+no variables, prints our our whole database as a tree (grade -> term -> week/caps_topic -> video)
+
+3.
+/topics
+no variables, prints all caps topics without video information.
+This can go but the curriculum tool depends on it.
+
+adding &callback=my_func will pad the JSON with myfunc() so you can load it into your webapp (in our case the curriculum mapping tool).
